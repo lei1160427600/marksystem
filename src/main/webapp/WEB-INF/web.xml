@@ -1,0 +1,43 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0"
+         metadata-complete="true">
+	<display-name>marksystem</display-name>
+	<listener>  
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+    </listener>
+    <!--spring config  -->
+	 <context-param>
+ 		<param-name>contextConfigLocation</param-name>
+ 		<param-value>classpath:spring/spring-*.xml</param-value>
+ 	</context-param>
+	<servlet>    
+	    <servlet-name>Way REST Service</servlet-name>  
+	 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>  
+	 		<init-param>
+			    <param-name>jersey.config.server.provider.classnames</param-name>
+			    <param-value>org.glassfish.jersey.filter.LoggingFilter;org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+			</init-param>
+		    <init-param>    
+		    	<param-name>jersey.config.server.provider.packages</param-name>  
+		        <param-value>cn.edu.henau.restful</param-value>  
+		     </init-param>
+	  	 <load-on-startup>1</load-on-startup>  
+ 	</servlet>
+   
+	 <servlet-mapping>  
+	   <servlet-name>Way REST Service</servlet-name>  
+	   <url-pattern>/rest/*</url-pattern>  
+	 </servlet-mapping>  
+  	<!--  <error-page>
+  	 	<error-code>404</error-code>
+  	 	<location>/error.html</location>
+  	 </error-page> -->
+	 <welcome-file-list>
+	     <welcome-file>index.jsp</welcome-file>
+	     <welcome-file>index.html</welcome-file>
+	     <welcome-file>index.htm</welcome-file>
+	 </welcome-file-list>
+ </web-app>

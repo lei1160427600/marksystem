@@ -1,0 +1,2 @@
+127.0.0.1 - - [01/Jul/2017:09:45:25 +0800] "GET /marksystem/rest/mark/loadAllCourseList HTTP/1.0" 500 25084 http-bio-8080-exec-1 2196
+0:0:0:0:0:0:0:1 - - [01/Jul/2017:09:45:30 +0800] "GET /marksystem/rest/mark/loadTeacherList/?identity=%E6%95%99%E5%B8%88 HTTP/1.0" 200 1077 http-bio-8080-exec-2 786

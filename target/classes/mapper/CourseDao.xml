@@ -1,0 +1,71 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.henau.dao.CourseDao">
+    <!--目的:为dao接口方法提供sql语句配置
+    即针对dao接口中的方法编写我们的sql语句-->
+    <select id="queryById" resultType="Course" parameterType="long">
+        SELECT *
+        FROM t_sys_course
+        WHERE course_id=#{courseId}
+    </select>
+     <select id="loadCourseList" resultType="String">
+        SELECT course
+        FROM t_sys_course
+        WHERE t_code = #{tCode} 
+    </select>
+    
+     <select id="loadAllCourseList" resultType="String" >
+        SELECT course
+        FROM t_sys_course
+    </select>
+    
+    <delete id="deleteCourse" parameterType="java.util.List">
+        delete from t_sys_course where course_id in (
+        <foreach collection="list" item="item" index="index"  separator=",">
+            #{item.courseId}
+        </foreach>
+        )  
+	 </delete>
+    
+     <insert id="insertCourse" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="courseId">
+	  insert into t_sys_course (course_id,profession,remark,class_Room,course_Date,t_Code,course)
+	  values
+	   <foreach collection="list" item="item" index="index"  
+            separator=",">  
+            (#{item.courseId,jdbcType=BIGINT},#{item.profession,jdbcType=VARCHAR},#{item.remark,jdbcType=VARCHAR},
+              #{item.classRoom,jdbcType=VARCHAR},#{item.courseDate,jdbcType=VARCHAR},#{item.tCode,jdbcType=VARCHAR},
+              #{item.course,jdbcType=VARCHAR}
+            )  
+        </foreach>  
+	</insert>
+	<update id="updateCourse"  parameterType="java.util.List">  
+	    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	        update t_sys_course
+	        set
+	            profession=#{item.profession},
+	            remark=#{item.remark},
+	            class_Room=#{item.classRoom},
+	            course_Date=#{item.courseDate},
+	            course=#{item.course}
+	        
+	         WHERE course_id = #{item.courseId}
+	    </foreach>      
+	</update>
+	
+	   <select id="queryByTCode" resultType="Course">
+        SELECT *
+        FROM t_sys_course
+         WHERE t_code=#{tCode}
+        ORDER BY course_id ASC
+    </select>
+
+    <select id="queryAll" resultType="Course">
+        SELECT *
+        FROM t_sys_course
+        ORDER BY create_time DESC
+        limit #{offset},#{limit}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,79 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.henau.dao.GradeDao">
+    <!--目的:为dao接口方法提供sql语句配置
+    即针对dao接口中的方法编写我们的sql语句-->
+    <select id="queryById" resultType="Grade" parameterType="long">
+        SELECT *
+        FROM t_sys_grade
+        WHERE grade_id=#{gradeId}
+    </select>
+    
+      <select id="queryaddDate" resultType="java.util.Date">
+        SELECT distinct addDate
+        FROM t_sys_grade
+    </select>
+    
+    
+    <delete id="deleteCourse" parameterType="java.util.List">
+        delete from t_sys_course where course_id in (
+        <foreach collection="list" item="item" index="index"  separator=",">
+            #{item.courseId}
+        </foreach>
+        )  
+	 </delete>
+    
+     <insert id="insertGrade" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="gradeId">
+	  insert into t_sys_grade (user_code,user_name,absenteeismCount,urgent,absenteeism,grade_id,t_code,grade,leaveCount,addDate,profession,user_class)
+	  values
+	   <foreach collection="list" item="item" index="index"  
+            separator=",">  
+            (#{item.userCode,jdbcType=VARCHAR},#{item.userName,jdbcType=VARCHAR},#{item.absenteeismCount,jdbcType=INTEGER},
+              #{item.urgent,jdbcType=INTEGER},#{item.absenteeism,jdbcType=INTEGER},#{item.gradeId,jdbcType=BIGINT},
+              #{item.tCode,jdbcType=VARCHAR},#{item.grade,jdbcType=INTEGER},#{item.leaveCount,jdbcType=INTEGER},NOW(),
+              #{item.profession,jdbcType=VARCHAR},#{item.userClass,jdbcType=VARCHAR}
+            )  
+        </foreach>  
+	</insert>
+	<update id="updateGrade"  parameterType="java.util.List">  
+	    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	        update t_sys_grade
+	        set
+	            grade=#{item.grade}
+	        
+	         WHERE grade_id = #{item.gradeId}
+	    </foreach>      
+	</update>
+	
+	   <select id ="queryByCondition" resultType="Grade">
+    	select t.*
+    	from t_sys_grade t
+    	where t.t_code=#{tCode, jdbcType=VARCHAR}
+    	<if test="profession !=null ">
+    	 AND t.profession = #{profession, jdbcType=VARCHAR}  
+    	</if>
+    	<if test="userClass !=null ">
+    	 AND t.user_class = #{userClass, jdbcType=VARCHAR}  
+    	</if>
+    	<if test="userCode !=null ">
+    	 AND t.user_code = #{userClass, jdbcType=VARCHAR}  
+    	</if>
+    	 ORDER BY addDate DESC
+    </select>
+	
+	   <select id="queryByTCode" resultType="Grade">
+        SELECT *
+        FROM t_sys_grade
+         WHERE t_code=#{tCode}
+        ORDER BY grade_id ASC
+    </select>
+
+    <select id="queryAll" resultType="Grade">
+        SELECT *
+        FROM t_sys_grade
+        ORDER BY addDate DESC
+    </select>
+
+
+</mapper>
