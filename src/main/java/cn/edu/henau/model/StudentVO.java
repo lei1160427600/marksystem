@@ -27,5 +27,5 @@ public class StudentVO {
 	public void setDeleteStudentList(List<UserEntity> deleteStudentList) {
 		this.deleteStudentList = deleteStudentList;
 	}
-	
+
 }

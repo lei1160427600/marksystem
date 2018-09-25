@@ -25,6 +25,13 @@ public interface UserService {
 
 	List<UserEntity> createRollCall(Login login);
 
+	/**
+	 *
+	 * @param vo
+	 * @param pageIndex
+	 * @param countPerPage
+	 * @return
+	 */
 	Page<CheckInVO> getCurrentPage(CheckInVO vo, int pageIndex, int countPerPage);
 
 	List<Course> readXls(InputStream inputStream) throws IOException;

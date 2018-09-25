@@ -11,50 +11,50 @@ public class Page<T> implements Serializable {
     /** 
      *  
      */  
-    private static final long serialVersionUID = 8338235914409958290L;  
+    private static final long serialVersionUID = 8338235914409958290L;
   
     /** 
      *  
      */  
     public static final int MAX_LIMIT = 1000;  
   
-    private int pageIndex = 1;  
+    private int pageIndex = 1;
   
-    private long pageCount = 1;  
+    private long pageCount = 1;
   
-    private int countPerPage = 10;  
-  
-    /** 
-     *  
-     */  
-    private int limit = 20;  
+    private int countPerPage = 10;
   
     /** 
      *  
      */  
-    private int start = 0;  
+    private int limit = 20;
   
     /** 
      *  
      */  
-    private long results = 0;  
+    private int start = 0;
   
     /** 
      *  
      */  
-    private List<T> rows = new ArrayList<T>();  
+    private long results = 0;
   
     /** 
      *  
      */  
-    private T condition;  
+    private List<T> rows = new ArrayList<T>();
   
     /** 
      *  
      */  
-    private int size = 0;  
+    private T condition;
   
-    private Long codeTableId;  
+    /** 
+     *  
+     */  
+    private int size = 0;
+  
+    private Long codeTableId;
   
     public Page() {  
         super();  

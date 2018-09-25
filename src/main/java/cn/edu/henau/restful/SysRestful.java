@@ -8,17 +8,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.io.FileUtils;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -73,6 +70,8 @@ public class SysRestful {
 	@Autowired
 	private TaskDao taskDao;
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@POST
 	@Path("/login")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -104,7 +103,7 @@ public class SysRestful {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<UserEntity> queryAuthority(Login login) {
 		List<UserEntity> list = userService.createRollCall(login);
-	
+
 		return list;
 	}
 
@@ -131,28 +130,25 @@ public class SysRestful {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public CourseVO loadCourseVO(@QueryParam("tcode") String tCode) {
-		CourseVO vo = new CourseVO();
-		vo.setCourseTable(courseDao.queryByTCode(tCode));
-		vo.setTeacherInfo(teacherDao.queryByTCode(tCode));
-		return vo;
+		CourseVO v = new CourseVO();
+		v.setCourseTable(courseDao.queryByTCode(tCode));
+		v.setTeacherInfo(teacherDao.queryByTCode(tCode));
+		return v;
 	}
-
 	@GET
-	@Path("/loadStudentVO")
+	@Path("/loadStudentVO/{userCode}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public StudentVO loadStudentVO(@QueryParam("userCode") String userCode) {
-		StudentVO vo = new StudentVO();
+	public StudentVO loadStudentVO(@PathParam("userCode") String userCode) {
+		logger.info("loadStudentVO============= userCode: "+userCode);
+		StudentVO v = new StudentVO();
 		List<UserEntity> list = new ArrayList<UserEntity>();
 		List<UserEntity> deletelist = new ArrayList<UserEntity>();
-		vo.setStudentInfo(userDao.queryByUserCode(userCode));
-		vo.setAddStudent(list);
-		vo.setDeleteStudentList(deletelist);
-//		vo.setCourseTable(courseDao.queryByTCode(tCode));
-//		vo.setTeacherInfo(teacherDao.queryByTCode(tCode));
-		return vo;
+		v.setStudentInfo(userDao.queryByUserCode(userCode));
+		v.setAddStudent(list);
+		v.setDeleteStudentList(deletelist);
+		return v;
 	}
-	
 	@POST
 	@Path("/saveStudentVO")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -228,8 +224,6 @@ public class SysRestful {
 //			    map.put("task", fileName);
 			    Task task = new Task();
 			    task.setTask(fileName);
-			
-
 		return task;
 	}
 	
@@ -240,6 +234,7 @@ public class SysRestful {
 	public List<Task> saveTask(List<Task> task) {
 		return userService.saveTask(task);
 	}
+
 	@GET
 	@Path("/loadTask")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -308,5 +303,10 @@ public class SysRestful {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<UserEntity> loadTeacherList(@QueryParam("identity") String identity) {
 		return userDao.loadTeacherList(identity);
+		/*
+		*
+		*
+		* */
+
 	}
 }

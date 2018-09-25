@@ -4,6 +4,8 @@ import java.util.List;
 
 import cn.edu.henau.entity.Course;
 import cn.edu.henau.entity.Teacher;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.jupiter.api.Test;
 
 public class CourseVO {
 
@@ -28,5 +30,15 @@ public class CourseVO {
 	public void setDeleteCourseList(List<Course> deleteCourseList) {
 		this.deleteCourseList = deleteCourseList;
 	}
-	
+
+	@Test
+	public String test() {
+		for (int item = 0; item < 100; item++) {
+			System.out.println(item);
+		}
+		String a = "usrename";
+		return "CourseVO{";
+	}
+
+
 }

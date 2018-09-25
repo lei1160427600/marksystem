@@ -1,0 +1,8 @@
+0:0:0:0:0:0:0:1 - - [08/Feb/2018:23:56:50 +0800] "GET / HTTP/1.1" 404 - http-bio-8080-exec-1 0
+127.0.0.1 - - [08/Feb/2018:23:58:52 +0800] "GET /marksystem/rest/mark/loadAllCourseList HTTP/1.0" 500 25085 http-bio-8080-exec-4 1398
+0:0:0:0:0:0:0:1 - - [08/Feb/2018:23:58:58 +0800] "GET /marksystem/rest/mark/loadTeacherList/?identity=%E6%95%99%E5%B8%88 HTTP/1.0" 200 1077 http-bio-8080-exec-5 870
+127.0.0.1 - - [08/Feb/2018:23:59:24 +0800] "POST /marksystem/rest/mark/login HTTP/1.0" 200 252 http-bio-8080-exec-6 137
+0:0:0:0:0:0:0:1 - - [08/Feb/2018:23:59:32 +0800] "POST /marksystem/rest/mark/login HTTP/1.0" 200 238 http-bio-8080-exec-7 11
+127.0.0.1 - - [08/Feb/2018:23:59:41 +0800] "GET /marksystem/rest/mark/loadAllCourseList HTTP/1.0" 200 687 http-bio-8080-exec-8 81
+0:0:0:0:0:0:0:1 - - [08/Feb/2018:23:59:41 +0800] "GET /marksystem/rest/mark/loadTeacherList/?identity=%E6%95%99%E5%B8%88 HTTP/1.0" 200 1077 http-bio-8080-exec-9 12
+127.0.0.1 - - [08/Feb/2018:23:59:41 +0800] "GET /marksystem/rest/mark/loadStudentVO/1310107009 HTTP/1.0" 200 354 http-bio-8080-exec-10 26
