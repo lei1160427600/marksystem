@@ -185,7 +185,6 @@ public class SysRestful {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Checkin> queryCheckin(Checkin checkin) {
-
 		List<Checkin> list = checkinDao.getCurrentPage(checkin);
 		return list;
 	}
